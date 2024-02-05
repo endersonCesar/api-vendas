@@ -6,10 +6,10 @@ const router = express.Router();
 // router.use(cors());
 // router.use(validacaoApiKey);
 
-const controller = require('../../controller/configuracao/marca.controller');
+const controller = require('../../controller/estoque/estoque.controller');
 // const { validaBloqueioCliente, validaDesbloqueioCliente } = require('./cliente.validation');
 
-router.post('/inserir', controller.cadastrarMarca);
+router.post('/inserir', controller.cadastrarEstoque);
 // router.get('/buscar', controller.buscarMarca);
 // router.get('/deletar/:id', controller.excluirMarca);
 

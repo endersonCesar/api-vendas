@@ -19,7 +19,8 @@ app.use(function (err, req, res, next) {
 });
 const configuracaoRoute = require('./routes/cofiguracao/marca.route');
 const produtoRoute = require('./routes/cofiguracao/produto.route');
+const estoqueRoute = require('./routes/estoque/estoque.route');
 app.use('/api/configuracao/marca',configuracaoRoute);
 app.use('/api/configuracao/produto',produtoRoute);
-
+app.use('/api/estoque',estoqueRoute);
 module.exports = app;
