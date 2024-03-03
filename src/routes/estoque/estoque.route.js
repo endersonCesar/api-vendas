@@ -10,7 +10,7 @@ const controller = require('../../controller/estoque/estoque.controller');
 // const { validaBloqueioCliente, validaDesbloqueioCliente } = require('./cliente.validation');
 
 router.post('/inserir', controller.cadastrarEstoque);
-// router.get('/buscar', controller.buscarMarca);
-// router.get('/deletar/:id', controller.excluirMarca);
+ router.get('/buscar', controller.buscarEstoque);
+router.get('/deletar/:id', controller.excluirEstoque);
 
 module.exports = router;

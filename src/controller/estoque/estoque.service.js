@@ -1,7 +1,9 @@
 
 
 const {
-    cadastrarEstoque:cadastrarEstoqueHelper
+    cadastrarEstoque:cadastrarEstoqueHelper,
+    buscarEstoque:buscarEstoqueHelper,
+    excluirEstoque:excluirEstoqueHelper
     } = require("../../helper/estoque/estoque.helper");
 
 
@@ -15,6 +17,31 @@ const cadastrarEstoque = async (payload, sucessos, erros)=>{
       });
     }
 }   
+
+const buscarEstoque= async (payload, sucessos, erros) => {
+  const { validado, retorno, error } = await buscarEstoqueHelper();
+  if (validado) {
+    sucessos.push(retorno);
+  } else {
+    erros.push({
+      mensagem: "Ocorreu um erro ao buscar os produtos",
+      erros: error,
+    });
+  }
+};
+
+const excluirEstoque= async (payload, sucessos, erros) => {
+  const { validado, retorno, error } = await excluirEstoqueHelper(payload);
+  if (validado) {
+    sucessos.push(retorno);
+  } else {
+    erros.push({
+      mensagem: "Ocorreu um erro ao buscar os produtos",
+      erros: error,
+    });
+  }
+};
+
 exports.estoqueService = async (payload, operacao) => {
     let sucessos = [];
     let erros = [];
@@ -22,6 +49,12 @@ exports.estoqueService = async (payload, operacao) => {
       case 1:
         await cadastrarEstoque(payload, sucessos, erros);
         break;
+      case 2:
+          await buscarEstoque(payload, sucessos, erros);
+      break;
+      case 3:
+        await excluirEstoque(payload, sucessos, erros);
+    break;
       default:
         console.log("Operacao nao encontrada");
         break;
