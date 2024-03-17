@@ -12,5 +12,6 @@ const controller = require('../../controller/estoque/estoque.controller');
 router.post('/inserir', controller.cadastrarEstoque);
  router.get('/buscar', controller.buscarEstoque);
 router.get('/deletar/:id', controller.excluirEstoque);
-
+router.get('/buscarId/:id', controller.buscarId);
+router.put('/editar/:id', controller.editarEstoque);
 module.exports = router;
