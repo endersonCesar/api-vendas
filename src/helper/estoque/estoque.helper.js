@@ -32,7 +32,7 @@ exports.buscarEstoque= async ()=>{
 
         const { rows } = await client.query(
             `
-            select e.id,e.caracteristica,e.quantidade,e.tamanho,e.total_peca,e.valor_unitario,p.produto,m.marca from configuracao.estoque e
+            select e.id,e.caracteristica,e.tamanho,e.total_peca,e.valor_unitario,p.produto,m.marca from configuracao.estoque e
             inner join configuracao.marca m on m.id = e.marca_id
                 inner join configuracao.produto p on p.id = e.produto_id
             `,
@@ -114,6 +114,8 @@ exports.editarEstoque= async (payload)=>{
         estoqueId,usuarioAlteracao}=payload
     const client = await banco.connect();
     try {
+     
+        const valorUnitarioNumero = parseFloat(valorUnitario?.replace(',', '.'));
         let data= new Date()
         const { rowCount } = await client.query(
             `update  configuracao.estoque
@@ -126,10 +128,10 @@ exports.editarEstoque= async (payload)=>{
                     usuario_alteraco=$8,
                     data_alteracao=$9
             where id =$1`,
-            [estoqueId,produtoId,marcaId,tamanho,caracteristica,totalPecas,valorUnitario,usuarioAlteracao,data]
+            [estoqueId,produtoId,marcaId,tamanho,caracteristica,totalPecas,valorUnitarioNumero,usuarioAlteracao,data]
         );
         console.log(rowCount)
-        let dados = await helper.tratarRespostaModel({ resultado: rowCount, operacao: 2 });
+        let dados = await helper.tratarRespostaModel({ resultado: rowCount, operacao: 2,error:[] });
         console.log(dados)
         return dados;
     } catch (error) {

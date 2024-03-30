@@ -26,12 +26,13 @@ exports.tratarRespostaModel = async function (payload) {
         }
       }
       async function tratandoRespostaEdit() {
-        if (resultado.length > 0) {
+    
+        if (resultado > 0 ) {
           return {
             validado: true,
             retorno: {
               mensagem: 'Dados editados com sucesso',
-              dados: resultado[0].id,
+              dados: resultado,
             },
             error: [],
           };
@@ -46,6 +47,15 @@ exports.tratarRespostaModel = async function (payload) {
             validado: false,
             retorno: [],
             error: [{ mensagem: error }],
+          };
+        } else if (resultado ===0) {
+          return {
+            validado: true,
+            retorno: {
+              mensagem: 'Nenhum dado foi editado',
+              dados:[],
+            },
+            error: [],
           };
         }
       }
@@ -114,11 +124,12 @@ exports.tratarRespostaModel = async function (payload) {
   
       return retorno;
     } catch (error) {
+      console.log(error)
       return {
         validado: false,
         retorno: [
           {
-            mensagem: 'Ocorru um erro inesperado',
+            mensagem: 'Ocorreu um erro inesperado',
             dados: [],
           },
         ],

@@ -41,7 +41,7 @@ exports.buscarId= async (req,res)=>{
 
 exports.editarEstoque= async (req,res)=>{
     const payload = req.body
-    payload['estoqueId']
+    payload['estoqueId'] = req.params.id
     let template={
         produtoId:null,
         marcaId:null,
@@ -53,7 +53,7 @@ exports.editarEstoque= async (req,res)=>{
         usuarioAlteracao:null
     }
     
-    const { sucessos: confirmados, erros } = await estoqueService(Object.assign(payload,template), 5);
+    const { sucessos: confirmados, erros } = await estoqueService(Object.assign(template,payload), 5);
     if (erros.length > 0) {
         return res.status(400).json({ confirmados, erros });
     }

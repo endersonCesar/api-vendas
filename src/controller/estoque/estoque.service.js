@@ -55,6 +55,7 @@ const buscarId = async (payload, sucessos, erros) => {
 
 
 const editar = async (payload, sucessos, erros) => {
+  console.log(payload)
   const { validado, retorno, error } = await esitarEstoqueHelper(payload);
   if (validado) {
     sucessos.push(retorno);
