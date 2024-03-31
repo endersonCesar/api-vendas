@@ -5,10 +5,11 @@ exports.cadastrarEstoque= async (payload)=>{
     const client = await banco.connect();
     try {
         let data = new Date()
+        const valorUnitarioNumero = parseFloat(valorUnitario?.replace(',', '.'));
         const { rows } = await client.query(
             `INSERT INTO configuracao.estoque (produto_id,marca_id,tamanho,caracteristica,total_peca,valor_unitario,usuario_inclusao,data_inclusao) 
               VALUES ($1,$2,$3,$4,$5,$6,$7,$8)   RETURNING *`,
-            [produtoId,marcaId,tamanho,caracteristica,totalPecas,valorUnitario,usuarioInclusao,data],
+            [produtoId,marcaId,tamanho,caracteristica,totalPecas,valorUnitarioNumero,usuarioInclusao,data],
         );
         let dados = await helper.tratarRespostaModel({ resultado: rows, operacao: 1 });
         return dados;
@@ -35,6 +36,7 @@ exports.buscarEstoque= async ()=>{
             select e.id,e.caracteristica,e.tamanho,e.total_peca,e.valor_unitario,p.produto,m.marca from configuracao.estoque e
             inner join configuracao.marca m on m.id = e.marca_id
                 inner join configuracao.produto p on p.id = e.produto_id
+                where e.situacao=0
             `,
         );
         let dados = await helper.tratarRespostaModel({ resultado: rows, operacao: 4 });

@@ -6,9 +6,9 @@ const router = express.Router();
 // router.use(cors());
 // router.use(validacaoApiKey);
 
-const controller = require('../../controller/venda/venda.service');
+const controller = require('../../controller/venda/venda.controller');
 // const { validaBloqueioCliente, validaDesbloqueioCliente } = require('./cliente.validation');
 
-router.post('/inserir', controller.vendaService);
+router.post('/inserir', controller.cadastrarVenda);
 
 module.exports = router;

@@ -1,6 +1,11 @@
+const {
+  cadastrarVenda:cadastrarVendaHelper
+} = require("../../helper/vendas/vendas.helper");
+const {buscarEstoquePorId} = require('../../helper/estoque/estoque.helper')
 const cadastrarVenda = async (payload, sucessos, erros) => {
     console.log(payload)
-    // const { validado, retorno } = await cadastrarEstoqueHelper(payload);
+
+   // const { validado, retorno } = await cadastrarVendaHelper(payload);
     // if (validado) {
     //   sucessos.push({ id: retorno.dados, mensagem: retorno.mensagem });
     // } else {
