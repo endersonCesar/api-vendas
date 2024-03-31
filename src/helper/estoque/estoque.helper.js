@@ -33,7 +33,7 @@ exports.buscarEstoque= async ()=>{
 
         const { rows } = await client.query(
             `
-            select e.id,e.caracteristica,e.tamanho,e.total_peca,e.valor_unitario,p.produto,m.marca from configuracao.estoque e
+            select e.id,e.caracteristica,e.tamanho,e.total_peca,e.valor_unitario,p.produto,m.marca,e.valor_venda from configuracao.estoque e
             inner join configuracao.marca m on m.id = e.marca_id
                 inner join configuracao.produto p on p.id = e.produto_id
                 where e.situacao=0
