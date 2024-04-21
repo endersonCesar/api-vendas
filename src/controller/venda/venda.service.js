@@ -1,16 +1,13 @@
 const {
   cadastrarVenda:cadastrarVendaHelper
 } = require("../../helper/vendas/vendas.helper");
-const {buscarEstoquePorId} = require('../../helper/estoque/estoque.helper')
 const cadastrarVenda = async (payload, sucessos, erros) => {
-
-
    const { validado, retorno } = await cadastrarVendaHelper(payload);
     if (validado) {
-      sucessos.push({ id: retorno.dados, mensagem: retorno.mensagem });
+      sucessos.push({ mensagem: retorno,validado:true });
     } else {
       erros.push({
-        mensagem: "Estoque  já cadastrado",
+         mensagem: retorno,validado:false 
       });
     }
   };
