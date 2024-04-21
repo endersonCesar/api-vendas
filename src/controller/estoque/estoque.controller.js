@@ -10,7 +10,7 @@ exports.cadastrarEstoque= async (req,res)=>{
 }
 
 exports.buscarEstoque= async (req,res)=>{
-    let payload =[]
+    let payload =req.body
     const { sucessos: confirmados, erros } = await estoqueService(payload, 2);
     if (erros.length > 0) {
         return res.status(400).json({ confirmados, erros });

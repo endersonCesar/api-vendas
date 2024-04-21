@@ -18,7 +18,7 @@ const cadastrarEstoque = async (payload, sucessos, erros) => {
 };
 
 const buscarEstoque = async (payload, sucessos, erros) => {
-  const { validado, retorno, error } = await buscarEstoqueHelper();
+  const { validado, retorno, error } = await buscarEstoqueHelper(payload);
   if (validado) {
     sucessos.push(retorno);
   } else {

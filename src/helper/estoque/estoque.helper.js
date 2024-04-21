@@ -26,17 +26,25 @@ exports.cadastrarEstoque= async (payload)=>{
         client.release(true);
     }
 }
-exports.buscarEstoque= async ()=>{
+exports.buscarEstoque= async (payload)=>{
     
+    const {situacao} = payload
     const client = await banco.connect();
     try {
 
+      
         const { rows } = await client.query(
             `
-            select e.id,e.caracteristica,e.tamanho,e.total_peca,e.valor_unitario,p.produto,m.marca,e.valor_venda from configuracao.estoque e
+            select e.id,e.caracteristica,e.tamanho,e.total_peca,e.valor_unitario,p.produto,m.marca,e.valor_venda,
+            CASE
+            WHEN situacao = 0 THEN 'Ativo'
+            WHEN situacao = 1 THEN 'Estoque em falta'
+            ELSE CAST(situacao AS VARCHAR) -- Converte para string se for outro valor
+        END AS situacao_descricao
+            from configuracao.estoque e
             inner join configuracao.marca m on m.id = e.marca_id
                 inner join configuracao.produto p on p.id = e.produto_id
-                where e.situacao=0
+                ${situacao===null?'--':''} where e.situacao=${situacao}
             `,
         );
         let dados = await helper.tratarRespostaModel({ resultado: rows, operacao: 4 });
@@ -117,6 +125,7 @@ exports.editarEstoque= async (payload)=>{
     const client = await banco.connect();
     try {
      
+        console.log()
         const valorUnitarioNumero = parseFloat(valorUnitario?.replace(',', '.'));
         let data= new Date()
         const { rowCount } = await client.query(
@@ -127,7 +136,7 @@ exports.editarEstoque= async (payload)=>{
                     caracteristica=$5,
                     total_peca=$6,
                     valor_unitario=$7,
-                    usuario_alteraco=$8,
+                    usuario_alteracao=$8,
                     data_alteracao=$9
             where id =$1`,
             [estoqueId,produtoId,marcaId,tamanho,caracteristica,totalPecas,valorUnitarioNumero,usuarioAlteracao,data]
