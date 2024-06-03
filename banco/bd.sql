@@ -1,54 +1,37 @@
 -- auto-generated definition
-create table configuracao.estoque
-(
-    id               bigserial,
-    produto_id       integer,
-    marca_id         integer,
-    tamanho          varchar,
-    caracteristica   varchar,
-    total_peca       varchar,
-    quantidade       varchar,
-    valor_unitario   integer,
-    usuario_inclusao varchar,
-    data_inclusao    date,
-    usuario_alteraco varchar,
-    data_alteracao   date
-);
-
-alter table estoque
-    owner to postgres;
-
--- auto-generated definition
-create table configuracao.marca
+create table vendas.transacao_estoque
 (
     id                bigserial,
-    marca             varchar,
+    estoque_id        integer
+        constraint fk_transacao_estoque
+            references configuracao.estoque,
     usuario_inclusao  varchar,
-    data_inclusao     date,
+    data_inclusao     varchar,
     usuario_alteracao varchar,
-    data_alteracao    date
+    data_alteracao    varchar,
+    quantidade        integer,
+    transacao_id      integer
 );
 
-alter table marca
+alter table transacao_estoque
     owner to postgres;
 
-create unique index idx_unique_marca
-    on marca (marca);
+
 
 -- auto-generated definition
-create table configuracao.produto
+create table vendas.transacao
 (
     id                bigserial,
-    produto           varchar,
+    valor_total       double precision,
+    desconto          double precision,
+    metodo_pagamento  integer,
+    quantidade_total  integer,
     usuario_inclusao  varchar,
     data_inclusao     varchar,
     usuario_alteracao varchar,
     data_alteracao    varchar
 );
 
-alter table produto
+alter table transacao
     owner to postgres;
-
-create unique index idx_unique_produto
-    on produto (produto);
 
