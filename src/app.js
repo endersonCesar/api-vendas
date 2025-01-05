@@ -17,12 +17,12 @@ app.use(function (err, req, res, next) {
 	}
 	next();
 });
-const configuracaoRoute = require('./routes/cofiguracao/marca.route');
-const produtoRoute = require('./routes/cofiguracao/produto.route');
+
+const medicamentoRoute = require('./routes/cofiguracao/medicamento.route');
 const estoqueRoute = require('./routes/estoque/estoque.route');
 const vendasRoute = require('./routes/venda/venda.route');
-app.use('/api/configuracao/marca',configuracaoRoute);
-app.use('/api/configuracao/produto',produtoRoute);
+
+app.use('/api/configuracao/medicamento',medicamentoRoute);
 app.use('/api/estoque',estoqueRoute);
 app.use('/api/vendas',vendasRoute);
 module.exports = app;
