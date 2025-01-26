@@ -1,7 +1,7 @@
 const {configuracaoService} = require ('./marca.service')
 
 exports.cadastrarMarca= async (req,res)=>{
-    console.log('aaaaaaaaaaaa')
+
     const payload = req.body
     const { sucessos: confirmados, erros } = await configuracaoService(payload, 1);
     if (erros.length > 0) {
